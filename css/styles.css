@@ -498,29 +498,52 @@ ul {
 }
 
 @media (max-width: 600px) {
-    :root {
-        --header-height: auto;
+    .site-header {
+        height: auto;
     }
 
     .header-content {
+        height: auto;
         min-height: 68px;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 12px;
         padding-top: 12px;
         padding-bottom: 12px;
     }
 
+    .brand {
+        grid-column: 1;
+        grid-row: 1;
+        font-size: 1.4rem;
+    }
+
+    .header-actions {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
     .main-nav {
-        order: 3;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: repeat(3, max-content);
+        gap: 12px 20px;
         width: 100%;
-        overflow-x: auto;
-        padding: 8px 0;
-        gap: 22px;
+        min-width: 0;
+        padding: 8px 0 4px;
+        overflow: visible;
     }
 
     .nav-link {
         white-space: nowrap;
         font-size: 0.85rem;
     }
+
 
     .hero-section {
         padding: 65px 0;
