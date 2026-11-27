@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Plan your next Philippine adventure with Lakbay. Discover destinations, organize trips, check weather, and manage your travel budget.">
+
+    <meta name="theme-color" content="#FF7A30">
+
+    <title>Lakbay | Plan Your Next Adventure</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./css/styles.css">
+
+    <!-- Application -->
+    <script type="module" src="./js/main.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-content">
+
+            <a href="./index.html" class="brand" aria-label="Lakbay homepage">
+                <span class="brand-icon" aria-hidden="true">✈</span>
+                <span>Lakbay</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#discover" class="nav-link">Discover</a>
+                <a href="#trips" class="nav-link">My Trips</a>
+                <a href="#favorites" class="nav-link">Favorites</a>
+                <a href="#budget" class="nav-link">Budget</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-button" type="button" aria-label="Notifications">
+                    ♧
+                </button>
+
+                <button class="profile-button" type="button" aria-label="User profile">
+                    G
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <main id="home">
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        YOUR NEXT ADVENTURE STARTS HERE
+                    </span>
+
+                    <h1>
+                        Plan Your Next Adventure
+                        <span>in the Philippines.</span>
+                    </h1>
+
+                    <p>
+                        Discover beautiful destinations, organize your trips,
+                        and create unforgettable memories with Lakbay.
+                    </p>
+
+                    <form class="search-form" id="destination-search">
+                        <label class="visually-hidden" for="search-input">
+                            Search destinations
+                        </label>
+
+                        <input type="search" id="search-input" name="destination"
+                            placeholder="Search destinations, activities, or places...">
+
+                        <button type="submit" class="btn btn-primary">
+                            Search
+                        </button>
+                    </form>
+
+                    <div class="hero-tags">
+                        <span>Explore Palawan</span>
+                        <span>Visit Cebu</span>
+                        <span>Discover Bohol</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="section dashboard-section">
+            <div class="container">
+
+                <div class="dashboard-grid">
+
+                    <!-- Upcoming Trips -->
+                    <section class="dashboard-panel" id="trips">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Upcoming Trips</h2>
+                                <p>Your next adventures await.</p>
+                            </div>
+
+                            <a href="#trips" class="text-link">View all →</a>
+                        </div>
+
+                        <div class="trip-list" id="upcoming-trips">
+                            <p class="empty-message">
+                                Your upcoming adventures will appear here.
+                            </p>
+                        </div>
+
+                        <button class="btn btn-primary create-trip-button" id="create-trip-button" type="button">
+                            + Create a Trip
+                        </button>
+                    </section>
+
+                    <!-- Weather Overview -->
+                    <section class="dashboard-panel weather-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Weather Today</h2>
+                                <p>Check the weather before you go.</p>
+                            </div>
+                        </div>
+
+                        <div id="weather-overview" class="weather-content">
+                            <div class="weather-icon" aria-hidden="true">☀</div>
+
+                            <div>
+                                <h3>Explore the Philippines</h3>
+                                <p>Select a destination to check its weather.</p>
+                            </div>
+                        </div>
+
+                        <a href="#discover" class="text-link">
+                            Explore destinations →
+                        </a>
+                    </section>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Destinations -->
+        <section class="section destinations-section" id="discover">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">EXPLORE THE PHILIPPINES</span>
+                        <h2 class="section-title">Popular Destinations</h2>
+                        <p class="section-description">
+                            Find your next favorite place to visit.
+                        </p>
+                    </div>
+
+                    <a href="#discover" class="text-link">Discover all →</a>
+                </div>
+
+                <div class="destination-grid" id="destination-list">
+                    <p class="empty-message">
+                        Discover amazing destinations across the Philippines.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Favorites -->
+        <section class="section favorites-section" id="favorites">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">YOUR COLLECTION</span>
+                        <h2 class="section-title">Favorite Destinations</h2>
+                        <p class="section-description">
+                            Places you would love to visit.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="favorite-list" class="destination-grid">
+                    <p class="empty-message">
+                        Your saved destinations will appear here.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Budget -->
+        <section class="section budget-section" id="budget">
+            <div class="container">
+                <div class="budget-banner">
+                    <div>
+                        <span class="section-label">TRAVEL SMARTER</span>
+                        <h2>Make every peso count.</h2>
+                        <p>
+                            Keep track of your travel expenses and stay within budget.
+                        </p>
+                    </div>
+
+                    <a href="#budget" class="btn btn-primary">
+                        Manage Budget →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+
+            <a href="./index.html" class="brand">
+                <span class="brand-icon" aria-hidden="true">✈</span>
+                <span>Lakbay</span>
+            </a>
+
+            <p>
+                Discover more. Travel farther. Make memories.
+            </p>
+
+            <p class="copyright">
+                © <span id="current-year"></span> Lakbay. Made for Filipino travelers.
+            </p>
+
+        </div>
+    </footer>
+
+</body>
+
+</html>
