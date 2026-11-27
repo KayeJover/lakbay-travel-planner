@@ -739,3 +739,108 @@ ul {
         grid-template-columns: 1fr;
     }
 }
+
+/* Budget Tracker */
+.budget-tracker {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.budget-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.budget-card {
+    background: #f7f9fc;
+    padding: 22px;
+    border-radius: 12px;
+}
+
+.budget-card span {
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.budget-card h3 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #222222;
+}
+
+.budget-form-section,
+.expense-form-section,
+.expense-list-section {
+    margin-top: 30px;
+}
+
+.budget-form-section h3,
+.expense-form-section h3,
+.expense-list-section h3 {
+    margin-bottom: 18px;
+}
+
+.budget-tracker form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.budget-tracker input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.budget-tracker form button {
+    align-self: flex-start;
+    margin-top: 8px;
+}
+
+.expense-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 16px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.expense-item p {
+    margin: 5px 0 0;
+    color: #666666;
+    font-size: 0.85rem;
+}
+
+.expense-item>span {
+    font-weight: 700;
+}
+
+.expense-delete-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #fdeaea;
+    color: #c62828;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .budget-tracker {
+        padding: 18px;
+    }
+
+    .budget-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .expense-item {
+        flex-wrap: wrap;
+    }
+}

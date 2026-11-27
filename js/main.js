@@ -22,6 +22,15 @@ import {
     getCurrentWeather,
     getWeatherForecast
 } from "./WeatherService.js";
+import {
+    getBudget,
+    saveBudget,
+    getExpenses,
+    addExpense,
+    deleteExpense,
+    getTotalExpenses,
+    getRemainingBudget
+} from "./BudgetTracker.js";
 
 // Local destination image mapping
 const destinationImages = [
@@ -614,6 +623,122 @@ async function displayWeather(location = "Cebu") {
 }
 
 
+function setupBudgetTracker() {
+    const budgetForm = document.getElementById("budget-form");
+    const expenseForm = document.getElementById("expense-form");
+    const expenseList = document.getElementById("expense-list");
+
+    if (!budgetForm || !expenseForm || !expenseList) return;
+
+    const formatCurrency = (amount) =>
+        `₱${Number(amount).toLocaleString("en-PH", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
+
+    function displayBudget() {
+        const budget = getBudget();
+        const spent = getTotalExpenses();
+        const remaining = getRemainingBudget();
+
+        document.getElementById("total-budget").textContent =
+            formatCurrency(budget);
+
+        document.getElementById("total-spent").textContent =
+            formatCurrency(spent);
+
+        document.getElementById("remaining-budget").textContent =
+            formatCurrency(remaining);
+
+        const remainingElement =
+            document.getElementById("remaining-budget");
+
+        remainingElement.style.color =
+            remaining < 0 ? "#C62828" : "#2E7D32";
+
+        expenseList.innerHTML = "";
+
+        const expenses = getExpenses();
+
+        if (expenses.length === 0) {
+            expenseList.innerHTML = "<p>No expenses added yet.</p>";
+            return;
+        }
+
+        expenses.forEach((expense) => {
+            const item = document.createElement("div");
+            item.classList.add("expense-item");
+
+            const details = document.createElement("div");
+
+            const name = document.createElement("strong");
+            name.textContent = expense.name;
+
+            const date = document.createElement("p");
+            date.textContent = expense.date;
+
+            const amount = document.createElement("span");
+            amount.textContent = formatCurrency(expense.amount);
+
+            details.append(name, date);
+
+            const removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.textContent = "Delete";
+            removeButton.classList.add("expense-delete-button");
+
+            removeButton.addEventListener("click", () => {
+                if (confirm(`Delete "${expense.name}"?`)) {
+                    deleteExpense(expense.id);
+                    displayBudget();
+                }
+            });
+
+            item.append(details, amount, removeButton);
+            expenseList.appendChild(item);
+        });
+    }
+
+    budgetForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const amount = Number(
+            document.getElementById("budget-amount").value
+        );
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+            alert("Please enter a valid budget greater than zero.");
+            return;
+        }
+
+        saveBudget(amount);
+        budgetForm.reset();
+        displayBudget();
+
+        alert("Your travel budget has been saved!");
+    });
+
+    expenseForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("expense-name").value.trim();
+        const amount = Number(
+            document.getElementById("expense-amount").value
+        );
+
+        if (!name || !Number.isFinite(amount) || amount <= 0) {
+            alert("Please enter a valid expense name and amount.");
+            return;
+        }
+
+        addExpense(name, amount);
+        expenseForm.reset();
+        displayBudget();
+    });
+
+    displayBudget();
+}
+
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -633,6 +758,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayTrips();
     setupTripCreation();
     displayWeather("Cebu");
+    setupBudgetTracker();
 
     // Get destination container
     const destinationList = document.getElementById("destination-list");
