@@ -687,3 +687,55 @@ ul {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+.weather-forecast {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.weather-forecast h4 {
+    margin-bottom: 18px;
+    font-size: 1.2rem;
+}
+
+.forecast-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.forecast-card {
+    padding: 15px 10px;
+    text-align: center;
+    background: #f7f9fc;
+    border-radius: 12px;
+}
+
+.forecast-date {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.forecast-card img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.forecast-condition {
+    font-size: 0.85rem;
+    color: #666;
+    min-height: 40px;
+}
+
+.forecast-temperatures {
+    font-weight: 700;
+    color: #222;
+}
+
+@media (max-width: 500px) {
+    .forecast-list {
+        grid-template-columns: 1fr;
+    }
+}

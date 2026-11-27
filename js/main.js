@@ -18,7 +18,10 @@ import {
     updateActivity,
     deleteActivity
 } from "./Itinerary.js";
-import { getCurrentWeather } from "./WeatherService.js";
+import {
+    getCurrentWeather,
+    getWeatherForecast
+} from "./WeatherService.js";
 
 // Local destination image mapping
 const destinationImages = [
@@ -463,6 +466,7 @@ function displayItinerary(tripId, container) {
 }
 
 
+
 async function displayWeather(location = "Cebu") {
     const weatherContainer = document.getElementById("weather-overview");
 
@@ -472,26 +476,23 @@ async function displayWeather(location = "Cebu") {
 
     try {
         const weather = await getCurrentWeather(location);
-
         const { current, location: weatherLocation } = weather;
 
         weatherContainer.innerHTML = "";
 
-        // Weather heading
+        // Current weather heading
         const heading = document.createElement("h3");
         heading.textContent = `Weather in ${weatherLocation.name}`;
 
-        // Main weather content
+        // Current weather content
         const content = document.createElement("div");
         content.classList.add("weather-content");
 
-        // Weather icon
         const icon = document.createElement("img");
         icon.src = `https:${current.condition.icon}`;
         icon.alt = current.condition.text;
         icon.classList.add("weather-icon");
 
-        // Temperature and condition
         const mainWeather = document.createElement("div");
         mainWeather.classList.add("weather-main");
 
@@ -542,8 +543,67 @@ async function displayWeather(location = "Cebu") {
         });
 
         content.append(mainWeather, details);
-
         weatherContainer.append(heading, content);
+
+        // Load the 3-day forecast separately
+        try {
+            const forecastData = await getWeatherForecast(location, 3);
+
+            const forecastSection = document.createElement("div");
+            forecastSection.classList.add("weather-forecast");
+
+            const forecastHeading = document.createElement("h4");
+            forecastHeading.textContent = "3-Day Forecast";
+
+            const forecastList = document.createElement("div");
+            forecastList.classList.add("forecast-list");
+
+            forecastData.forecast.forecastday.forEach((day) => {
+                const card = document.createElement("div");
+                card.classList.add("forecast-card");
+
+                const date = document.createElement("p");
+                date.classList.add("forecast-date");
+
+                const forecastDate = new Date(`${day.date}T00:00:00`);
+                date.textContent = forecastDate.toLocaleDateString(
+                    "en-PH",
+                    { weekday: "short", month: "short", day: "numeric" }
+                );
+
+                const forecastIcon = document.createElement("img");
+                forecastIcon.src = `https:${day.day.condition.icon}`;
+                forecastIcon.alt = day.day.condition.text;
+
+                const forecastCondition = document.createElement("p");
+                forecastCondition.classList.add("forecast-condition");
+                forecastCondition.textContent = day.day.condition.text;
+
+                const temperatures = document.createElement("p");
+                temperatures.classList.add("forecast-temperatures");
+                temperatures.textContent =
+                    `${day.day.maxtemp_c}° / ${day.day.mintemp_c}°C`;
+
+                card.append(
+                    date,
+                    forecastIcon,
+                    forecastCondition,
+                    temperatures
+                );
+
+                forecastList.appendChild(card);
+            });
+
+            forecastSection.append(forecastHeading, forecastList);
+            weatherContainer.appendChild(forecastSection);
+
+        } catch (forecastError) {
+            console.error("Forecast error:", forecastError);
+
+            const message = document.createElement("p");
+            message.textContent = "Weather forecast is currently unavailable.";
+            weatherContainer.appendChild(message);
+        }
 
     } catch (error) {
         console.error("Weather error:", error);
@@ -552,6 +612,7 @@ async function displayWeather(location = "Cebu") {
             "<p>Unable to load weather information. Please try again later.</p>";
     }
 }
+
 
 
 
