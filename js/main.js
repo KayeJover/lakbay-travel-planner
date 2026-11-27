@@ -99,6 +99,8 @@ function findDestinationImage(placeName) {
 }
 
 // Create a destination image with fallback
+
+// Create a destination image with fallback
 function createDestinationImage(src, name) {
     const image = document.createElement("img");
 
@@ -109,11 +111,12 @@ function createDestinationImage(src, name) {
 
     image.onerror = () => {
         image.onerror = null;
-        image.src = "./images/destination-placeholder.jpg";
+        image.src = "/images/destination-placeholder.jpg";
     };
 
     return image;
 }
+
 
 // Create a favorite button
 function createFavoriteButton(destination) {
@@ -796,7 +799,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const favoriteButton = createFavoriteButton({
                 name: destination.name,
-                image: `./images/${destination.image}`,
+                image: `/images/${destination.image}`,
                 description: destination.description
             });
 
@@ -813,8 +816,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const matchedImage = findDestinationImage(place.name);
 
         const imagePath = matchedImage
-            ? `./images/${matchedImage.image}`
-            : "./images/destination-placeholder.jpg";
+            ? `/images/${matchedImage.image}`
+            : "/images/destination-placeholder.jpg";
 
         const image = createDestinationImage(
             imagePath,
